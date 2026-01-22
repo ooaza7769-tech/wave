@@ -28,20 +28,14 @@
             user-select: none;
         }
 
-        /* --- LOGO W JEDNEJ LINII --- */
         .animated-logo {
-            /* Mniejszy zakres clamp, aby na pewno zmieścił się w poziomie */
             font-size: clamp(1.2rem, 6.5vw, 2rem); 
             letter-spacing: 2px;
             margin: 0 auto 20px auto;
             display: block;
             animation: floatText 3s ease-in-out infinite;
             text-transform: uppercase;
-            
-            /* TO ZAPEWNIA JEDNĄ LINIĘ */
             white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: clip;
             width: 100%;
         }
 
@@ -71,7 +65,6 @@
         .active { display: block; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- KARTA DOPASOWANA DO ZDJĘCIA 800x800 --- */
         .main-card {
             text-align: center;
             border: 2px solid rgba(0, 242, 255, 0.5);
@@ -81,13 +74,15 @@
             backdrop-filter: blur(20px);
             margin: auto;
             width: 100%;
-            max-width: 450px; /* Optymalna szerokość dla czytelności */
+            max-width: 450px;
             box-sizing: border-box;
+            position: relative;
+            z-index: 10;
         }
 
         .product-img {
             width: 100%;
-            aspect-ratio: 1 / 1; /* Wymusza kwadrat (jak Twoje 800x800) */
+            aspect-ratio: 1 / 1;
             object-fit: cover;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.2);
@@ -110,15 +105,53 @@
         }
         .btn-start:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 242, 255, 0.3); }
 
-        /* --- RESZTA ELEMENTÓW --- */
-        .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
-        .bubble { position: absolute; bottom: -100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; animation: rise 15s infinite ease-in; }
-        @keyframes rise { 0% { transform: translateY(0); opacity: 0; } 100% { transform: translateY(-110vh); opacity: 0; } }
+        .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; pointer-events: none; }
+        .bubble { 
+            position: absolute; 
+            bottom: -100px; 
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(0, 242, 255, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%; 
+            animation: rise 10s infinite ease-in; 
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+        }
 
-        .waves { position: fixed; bottom: 0; width: 100%; height: 10vh; z-index: -1; }
-        .parallax > use { animation: move-forever 20s cubic-bezier(.55,.5,.45,.5) infinite; }
-        .parallax > use:nth-child(4) { fill: var(--wave-cyan); }
-        @keyframes move-forever { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
+        @keyframes rise { 
+            0% { transform: translateY(0) scale(1); opacity: 0; } 
+            20% { opacity: 0.4; }
+            100% { transform: translateY(-120vh) scale(1.2); opacity: 0; } 
+        }
+
+        .waves-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            z-index: -1;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .editorial-wave {
+            display: block;
+            width: 200%;
+            height: 100%;
+            max-height: 150px;
+            margin: 0;
+        }
+
+        .parallax-waves > use {
+            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax-waves > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; fill: rgba(0, 242, 255, 0.7); }
+        .parallax-waves > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; fill: rgba(255, 0, 127, 0.5); }
+        .parallax-waves > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; fill: rgba(112, 0, 255, 0.3); }
+        .parallax-waves > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; fill: var(--wave-cyan); }
+
+        @keyframes move-forever {
+            0% { transform: translate3d(-90px,0,0); }
+            100% { transform: translate3d(85px,0,0); }
+        }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(10px); }
         .modal-content { background: #050a14; padding: 30px; border-radius: 20px; border: 2px solid var(--wave-cyan); width: 90%; max-width: 320px; text-align: center; }
@@ -138,9 +171,7 @@
     <div id="shop" class="page active">
         <div class="main-card">
             <div class="animated-logo">BRAINROTY.SHOP</div>
-            
             <img src="main.jpg" alt="ESOK" class="product-img">
-            
             <h2 style="font-size: 1rem; color: #aaa; text-transform: uppercase; margin: 0;">ESOK 636Qd/s</h2>
             <div class="price-tag">10.00 PLN</div>
             <button class="btn-start" onclick="openModal()">KUPUJĘ ⚡</button>
@@ -158,15 +189,19 @@
         </div>
     </div>
 
-    <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none">
-        <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
-        <g class="parallax">
-            <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 242, 255, 0.3)"/>
-            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255, 0, 127, 0.2)"/>
-            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(112, 0, 255, 0.2)"/>
-            <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--wave-cyan)"/>
-        </g>
-    </svg>
+    <div class="waves-container">
+        <svg class="editorial-wave" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax-waves">
+                <use xlink:href="#gentle-wave" x="48" y="0" />
+                <use xlink:href="#gentle-wave" x="48" y="3" />
+                <use xlink:href="#gentle-wave" x="48" y="5" />
+                <use xlink:href="#gentle-wave" x="48" y="7" />
+            </g>
+        </svg>
+    </div>
 
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
@@ -188,17 +223,26 @@
         function openModal() { document.getElementById('modal').style.display = 'flex'; }
         function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
-        // Bąbelki
         const container = document.getElementById('particles');
-        for (let i = 0; i < 15; i++) {
+        function createBubble() {
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
-            const size = Math.random() * 40 + 10 + 'px';
-            bubble.style.width = size; bubble.style.height = size;
+            const size = Math.random() * 60 + 20 + 'px';
+            bubble.style.width = size;
+            bubble.style.height = size;
             bubble.style.left = Math.random() * 100 + 'vw';
-            bubble.style.animationDuration = Math.random() * 10 + 5 + 's';
+            bubble.style.animationDuration = Math.random() * 5 + 7 + 's';
+            bubble.style.opacity = Math.random() * 0.5;
+            
             container.appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 12000);
         }
+
+        setInterval(createBubble, 600);
+        for(let i=0; i<10; i++) createBubble();
 
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
