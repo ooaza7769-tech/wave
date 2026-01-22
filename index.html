@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WAVEROT.PL | ESOK 636Qd/s</title>
+    <title>BRAINROTY.SHOP | ESOK 636Qd/s</title>
     <style>
         :root {
             --wave-cyan: #00f2ff;
@@ -28,22 +28,28 @@
             user-select: none;
         }
 
-        /* --- LOGO --- */
+        /* --- LOGO W JEDNEJ LINII --- */
         .animated-logo {
-            font-size: 2.5rem;
-            letter-spacing: 5px;
-            margin-bottom: 20px;
-            display: inline-block;
+            /* Mniejszy zakres clamp, aby na pewno zmieścił się w poziomie */
+            font-size: clamp(1.2rem, 6.5vw, 2rem); 
+            letter-spacing: 2px;
+            margin: 0 auto 20px auto;
+            display: block;
             animation: floatText 3s ease-in-out infinite;
             text-transform: uppercase;
+            
+            /* TO ZAPEWNIA JEDNĄ LINIĘ */
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: clip;
+            width: 100%;
         }
 
         @keyframes floatText {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); color: var(--wave-cyan); }
+            50% { transform: translateY(-10px); color: var(--wave-cyan); }
         }
 
-        /* --- NAWIGACJA --- */
         nav {
             width: 100%;
             background: rgba(0,0,0,0.6);
@@ -51,47 +57,50 @@
             padding: 20px 0;
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 2px solid var(--wave-cyan);
         }
 
-        nav a { color: white; text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; font-weight: bold; }
+        nav a { color: white; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; font-weight: bold; }
         nav a:hover { color: var(--wave-cyan); }
 
-        /* --- STRONY --- */
-        .page { display: none; padding: 40px 20px; width: 100%; max-width: 900px; animation: slideIn 0.5s ease-out; }
+        .page { display: none; padding: 40px 15px; width: 100%; max-width: 900px; animation: slideIn 0.5s ease-out; box-sizing: border-box; }
         .active { display: block; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- KARTA --- */
+        /* --- KARTA DOPASOWANA DO ZDJĘCIA 800x800 --- */
         .main-card {
             text-align: center;
             border: 2px solid rgba(0, 242, 255, 0.5);
-            padding: 40px;
+            padding: 25px;
             border-radius: 30px;
             background: var(--glass);
             backdrop-filter: blur(20px);
             margin: auto;
-            max-width: 400px;
+            width: 100%;
+            max-width: 450px; /* Optymalna szerokość dla czytelności */
+            box-sizing: border-box;
         }
 
         .product-img {
             width: 100%;
+            aspect-ratio: 1 / 1; /* Wymusza kwadrat (jak Twoje 800x800) */
+            object-fit: cover;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.2);
             margin-bottom: 25px;
         }
 
-        .price-tag { font-size: 3rem; margin: 15px 0; }
+        .price-tag { font-size: 2.5rem; margin: 15px 0; }
 
         .btn-start {
             background: white;
             color: black;
-            padding: 20px;
-            font-size: 1.2rem;
+            padding: 18px;
+            font-size: 1.1rem;
             border: none;
             border-radius: 15px;
             cursor: pointer;
@@ -101,37 +110,19 @@
         }
         .btn-start:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 242, 255, 0.3); }
 
-        /* --- TŁO I FALE --- */
+        /* --- RESZTA ELEMENTÓW --- */
         .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
         .bubble { position: absolute; bottom: -100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; animation: rise 15s infinite ease-in; }
-        @keyframes rise { 0% { transform: translateY(0); opacity: 0; } 50% { opacity: 0.3; } 100% { transform: translateY(-110vh); opacity: 0; } }
+        @keyframes rise { 0% { transform: translateY(0); opacity: 0; } 100% { transform: translateY(-110vh); opacity: 0; } }
 
-        .waves { position: fixed; bottom: 0; width: 100%; height: 12vh; z-index: -1; }
+        .waves { position: fixed; bottom: 0; width: 100%; height: 10vh; z-index: -1; }
         .parallax > use { animation: move-forever 20s cubic-bezier(.55,.5,.45,.5) infinite; }
         .parallax > use:nth-child(4) { fill: var(--wave-cyan); }
         @keyframes move-forever { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
 
-        /* --- MODAL --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none; justify-content: center; align-items: center; z-index: 2000;
-            backdrop-filter: blur(10px);
-        }
-        .modal-content {
-            background: #050a14;
-            padding: 40px;
-            border-radius: 20px;
-            border: 2px solid var(--wave-cyan);
-            width: 320px;
-            text-align: center;
-        }
-        input {
-            width: 90%; padding: 15px; margin: 12px 0;
-            background: rgba(255,255,255,0.05); border: 1px solid #333;
-            color: white; border-radius: 10px; text-align: center;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(10px); }
+        .modal-content { background: #050a14; padding: 30px; border-radius: 20px; border: 2px solid var(--wave-cyan); width: 90%; max-width: 320px; text-align: center; }
+        input { width: 100%; padding: 15px; margin: 12px 0; background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; border-radius: 10px; text-align: center; box-sizing: border-box; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -144,21 +135,21 @@
         <a href="https://discord.com/invite/AGn7xP6htd" target="_blank">Discord</a>
     </nav>
 
-    <div id="shop" class="page active" style="margin-top: 5vh;">
+    <div id="shop" class="page active">
         <div class="main-card">
-            <div class="animated-logo">WAVEROT.PL</div>
+            <div class="animated-logo">BRAINROTY.SHOP</div>
             
             <img src="main.jpg" alt="ESOK" class="product-img">
             
-            <h2 style="font-size: 1.2rem; color: #888; text-transform: uppercase;">ESOK 636Qd/s</h2>
+            <h2 style="font-size: 1rem; color: #aaa; text-transform: uppercase; margin: 0;">ESOK 636Qd/s</h2>
             <div class="price-tag">10.00 PLN</div>
             <button class="btn-start" onclick="openModal()">KUPUJĘ ⚡</button>
         </div>
     </div>
 
     <div id="tos" class="page">
-        <div class="main-card" style="max-width: 600px; text-align: left;">
-            <h2 style="color: var(--wave-cyan);">REGULAMIN WAVEROT.PL</h2>
+        <div class="main-card" style="max-width: 500px; text-align: left;">
+            <h2 style="color: var(--wave-cyan);">REGULAMIN</h2>
             <hr style="border: 0; height: 1px; background: #333; margin: 20px 0;">
             <p>1. Brak zwrotów po otrzymaniu towaru cyfrowego.</p>
             <p>2. Nie odpowiadamy za bany w grze.</p>
@@ -173,7 +164,7 @@
             <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 242, 255, 0.3)"/>
             <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255, 0, 127, 0.2)"/>
             <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(112, 0, 255, 0.2)"/>
-            <use xlink:href="#gentle-wave" x="48" y="7" />
+            <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--wave-cyan)"/>
         </g>
     </svg>
 
@@ -202,7 +193,7 @@
         for (let i = 0; i < 15; i++) {
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
-            const size = Math.random() * 50 + 10 + 'px';
+            const size = Math.random() * 40 + 10 + 'px';
             bubble.style.width = size; bubble.style.height = size;
             bubble.style.left = Math.random() * 100 + 'vw';
             bubble.style.animationDuration = Math.random() * 10 + 5 + 's';
@@ -232,7 +223,7 @@
                 });
                 window.location.href = STRIPE_URL;
             } catch (error) {
-                alert("Błąd!");
+                alert("Błąd połączenia!");
                 btn.disabled = false;
                 btn.innerText = "DALEJ";
             }
