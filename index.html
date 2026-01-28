@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAINROTY.SHOP | ESOK 636Qd/s</title>
+    <title>BRAINROTY.SHOP | OFERTA</title>
     <style>
         :root {
             --wave-cyan: #00f2ff;
@@ -28,15 +28,14 @@
             user-select: none;
         }
 
+        /* LOGO I NAWIGACJA */
         .animated-logo {
-            font-size: clamp(1.2rem, 6.5vw, 2rem); 
+            font-size: clamp(1.2rem, 6.5vw, 2.5rem); 
             letter-spacing: 2px;
-            margin: 0 auto 20px auto;
-            display: block;
+            margin: 20px auto;
+            text-align: center;
             animation: floatText 3s ease-in-out infinite;
             text-transform: uppercase;
-            white-space: nowrap; 
-            width: 100%;
         }
 
         @keyframes floatText {
@@ -51,203 +50,220 @@
             padding: 20px 0;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 40px;
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 2px solid var(--wave-cyan);
         }
 
-        nav a { color: white; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; font-weight: bold; }
-        nav a:hover { color: var(--wave-cyan); }
+        nav a { color: white; text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        nav a:hover { color: var(--wave-cyan); text-shadow: 0 0 10px var(--wave-cyan); }
 
-        .page { display: none; padding: 40px 15px; width: 100%; max-width: 900px; animation: slideIn 0.5s ease-out; box-sizing: border-box; }
+        .page { display: none; padding: 20px; width: 100%; max-width: 1100px; animation: slideIn 0.5s ease-out; box-sizing: border-box; flex: 1; }
         .active { display: block; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .main-card {
-            text-align: center;
-            border: 2px solid rgba(0, 242, 255, 0.5);
-            padding: 25px;
-            border-radius: 30px;
+        /* SKLEP - GRID */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
             background: var(--glass);
+            border: 2px solid rgba(0, 242, 255, 0.2);
+            border-radius: 25px;
+            padding: 35px 20px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .product-card:hover {
+            border-color: var(--wave-cyan);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 242, 255, 0.2);
+        }
+
+        .product-card h3 { font-size: 1.4rem; margin: 0; color: #fff; }
+        .price-tag { font-size: 2.2rem; color: var(--wave-cyan); margin: 15px 0; font-weight: bold; }
+
+        /* REGULAMIN */
+        .tos-container {
+            background: var(--glass);
+            border: 2px solid var(--wave-pink);
+            padding: 40px;
+            border-radius: 30px;
             backdrop-filter: blur(20px);
-            margin: auto;
+            margin-bottom: 100px;
+        }
+
+        .tos-container h2 { color: var(--wave-pink); text-align: center; margin-top: 0; }
+        .tos-item { margin-bottom: 20px; border-left: 3px solid var(--wave-pink); padding-left: 15px; }
+        .tos-item strong { color: var(--wave-cyan); display: block; margin-bottom: 5px; font-size: 1.1rem; }
+        .tos-item p { margin: 0; font-family: sans-serif; font-size: 0.95rem; line-height: 1.6; color: #ccc; }
+
+        /* FALE SVG NA DOLE */
+        .footer-waves {
             width: 100%;
-            max-width: 450px;
-            box-sizing: border-box;
-            position: relative;
-            z-index: 10;
-        }
-
-        .product-img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-bottom: 25px;
-        }
-
-        .price-tag { font-size: 2.5rem; margin: 15px 0; }
-
-        .btn-start {
-            background: white;
-            color: black;
-            padding: 18px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: 0.3s;
-        }
-        .btn-start:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 242, 255, 0.3); }
-
-        .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; pointer-events: none; }
-        .bubble { 
-            position: absolute; 
-            bottom: -100px; 
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(0, 242, 255, 0.1));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%; 
-            animation: rise 10s infinite ease-in; 
-            box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
-        }
-
-        @keyframes rise { 
-            0% { transform: translateY(0) scale(1); opacity: 0; } 
-            20% { opacity: 0.4; }
-            100% { transform: translateY(-120vh) scale(1.2); opacity: 0; } 
-        }
-
-        .waves-container {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 150px;
-            z-index: -1;
-            overflow: hidden;
+            background: transparent;
             line-height: 0;
+            margin-top: auto;
         }
 
-        .editorial-wave {
-            display: block;
-            width: 200%;
-            height: 100%;
-            max-height: 150px;
-            margin: 0;
+        .waves {
+            position: relative;
+            width: 100%;
+            height: 12vh;
+            min-height: 100px;
         }
 
-        .parallax-waves > use {
-            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        .parallax > use {
+            animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
         }
-        .parallax-waves > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; fill: rgba(0, 242, 255, 0.7); }
-        .parallax-waves > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; fill: rgba(255, 0, 127, 0.5); }
-        .parallax-waves > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; fill: rgba(112, 0, 255, 0.3); }
-        .parallax-waves > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; fill: var(--wave-cyan); }
+        .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+        .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
 
         @keyframes move-forever {
-            0% { transform: translate3d(-90px,0,0); }
-            100% { transform: translate3d(85px,0,0); }
+            0% { transform: translate3d(-90px, 0, 0); }
+            100% { transform: translate3d(85px, 0, 0); }
         }
 
+        /* PRZYCISKI I MODALE */
+        .btn-action {
+            background: white; color: black; padding: 15px; font-size: 1rem; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; text-transform: uppercase;
+        }
+        .btn-action:hover { background: var(--wave-cyan); transform: scale(1.05); }
+
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(10px); }
-        .modal-content { background: #050a14; padding: 30px; border-radius: 20px; border: 2px solid var(--wave-cyan); width: 90%; max-width: 320px; text-align: center; }
-        input { width: 100%; padding: 15px; margin: 12px 0; background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; border-radius: 10px; text-align: center; box-sizing: border-box; }
+        .modal-content { background: #050a14; padding: 35px; border-radius: 25px; border: 2px solid var(--wave-cyan); width: 90%; max-width: 350px; text-align: center; }
+        input { width: 100%; padding: 15px; margin: 12px 0; background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; border-radius: 10px; text-align: center; box-sizing: border-box; font-family: sans-serif; }
+
+        .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
+        .bubble { position: absolute; bottom: -100px; background: rgba(0, 242, 255, 0.1); border-radius: 50%; animation: rise 10s infinite ease-in; opacity: 0.3; }
+        @keyframes rise { 0% { transform: translateY(0); opacity: 0; } 100% { transform: translateY(-120vh); opacity: 0; } }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
     <div class="bg-particles" id="particles"></div>
 
     <nav>
         <a onclick="showPage('shop')">Sklep</a>
         <a onclick="showPage('tos')">Regulamin</a>
-        <a href="https://discord.com/invite/AGn7xP6htd" target="_blank">Discord</a>
     </nav>
 
     <div id="shop" class="page active">
-        <div class="main-card">
-            <div class="animated-logo">BRAINROTY.SHOP</div>
-            <img src="main.jpg" alt="ESOK" class="product-img">
-            <h2 style="font-size: 1rem; color: #aaa; text-transform: uppercase; margin: 0;">ESOK 6Qn/s</h2>
-            <div class="price-tag">10.00 PLN</div>
-            <button class="btn-start" onclick="openModal()">KUPUJĘ ⚡</button>
+        <div class="animated-logo">BRAINROTY.SHOP</div>
+        <div class="products-grid">
+            <div class="product-card">
+                <h3>30qn+ BRAINROT</h3>
+                <div class="price-tag">10 PLN</div>
+                <button class="btn-action" onclick="openModal('30qn+ BRAINROT', 'https://buy.stripe.com/14A14m215eWxcT72mu4AU0R')">KUP TERAZ ⚡</button>
+            </div>
+            <div class="product-card">
+                <h3>70qn+ BRAINROT</h3>
+                <div class="price-tag">16 PLN</div>
+                <button class="btn-action" onclick="openModal('70qn+ BRAINROT', 'https://buy.stripe.com/aFacN47lp29LaKZ8KS4AU0S')">KUP TERAZ ⚡</button>
+            </div>
+            <div class="product-card">
+                <h3>100qn+ BRAINROT</h3>
+                <div class="price-tag">22 PLN</div>
+                <button class="btn-action" onclick="openModal('100qn+ BRAINROT', 'https://buy.stripe.com/5kQ28qdJNg0BbP37GO4AU0T')">KUP TERAZ ⚡</button>
+            </div>
+            <div class="product-card">
+                <h3>200qn+ BRAINROT</h3>
+                <div class="price-tag">30 PLN</div>
+                <button class="btn-action" onclick="openModal('200qn+ BRAINROT', 'https://buy.stripe.com/8x2bJ0gVZ01D8CR7GO4AU0U')">KUP TERAZ ⚡</button>
+            </div>
+            <div class="product-card">
+                <h3>400qn+ BRAINROT</h3>
+                <div class="price-tag">40 PLN</div>
+                <button class="btn-action" onclick="openModal('400qn+ BRAINROT', 'https://buy.stripe.com/fZu00i6hl5lXf1f2mu4AU0V')">KUP TERAZ ⚡</button>
+            </div>
         </div>
     </div>
 
     <div id="tos" class="page">
-        <div class="main-card" style="max-width: 500px; text-align: left;">
-            <h2 style="color: var(--wave-cyan);">REGULAMIN</h2>
-            <hr style="border: 0; height: 1px; background: #333; margin: 20px 0;">
-            <p>1. Brak zwrotów po otrzymaniu towaru cyfrowego.</p>
-            <p>2. Nie odpowiadamy za bany w grze.</p>
-            <p>3. Kontakt przez Discord.</p>
-            <button class="btn-start" style="margin-top: 20px;" onclick="showPage('shop')">POWRÓT</button>
+        <div class="tos-container">
+            <h2>📜 REGULAMIN BRAINROTY.SHOP</h2>
+            <div class="tos-item">
+                <strong>§1 Zakup i Treści Cyfrowe</strong>
+                <p>Przedmiotem sprzedaży są niewymienne treści cyfrowe w grze Roblox. Ze względu na charakter produktu, po ich dostarczeniu nie przysługuje prawo do zwrotu pieniędzy.</p>
+            </div>
+            <div class="tos-item">
+                <strong>§2 Brak Prawa do Odstąpienia</strong>
+                <p>Zgodnie z prawem, Klient wyraża zgodę na dostarczenie treści przed upływem terminu do odstąpienia od umowy, co skutkuje utratą prawa do zwrotu (Art. 38 pkt 13 ustawy o prawach konsumenta).</p>
+            </div>
+            <div class="tos-item">
+                <strong>§3 Odpowiedzialność i Bezpieczeństwo</strong>
+                <p>Nie ponosimy odpowiedzialności za blokady kont (bany) nałożone przez Roblox. Kupujący korzysta z produktów na własne ryzyko.</p>
+            </div>
+            <div class="tos-item">
+                <strong>§4 Dostawa</strong>
+                <p>Dostawa odbywa się po weryfikacji danych (Discord/Roblox) w czasie do 48h. Podanie błędnego nicku zwalnia sprzedającego z odpowiedzialności.</p>
+            </div>
+            <button class="btn-action" style="background: var(--wave-pink); color: white;" onclick="showPage('shop')">AKCEPTUJĘ I WRACAM</button>
         </div>
     </div>
 
-    <div class="waves-container">
-        <svg class="editorial-wave" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <div class="footer-waves">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
             </defs>
-            <g class="parallax-waves">
-                <use xlink:href="#gentle-wave" x="48" y="0" />
-                <use xlink:href="#gentle-wave" x="48" y="3" />
-                <use xlink:href="#gentle-wave" x="48" y="5" />
-                <use xlink:href="#gentle-wave" x="48" y="7" />
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 242, 255, 0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255, 0, 127, 0.2)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0, 242, 255, 0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--wave-cyan)" />
             </g>
         </svg>
     </div>
 
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
-            <h3 style="color: white; margin-bottom: 25px;">PODAJ DANE</h3>
+            <h3 id="modalTitle" style="color: var(--wave-cyan); margin-top: 0;">PRODUKT</h3>
             <form id="orderForm">
-                <input type="text" id="discord" placeholder="TWÓJ DISCORD" required>
-                <input type="text" id="roblox" placeholder="TWÓJ ROBLOX" required>
-                <button type="submit" class="btn-start" id="submitBtn" style="margin-top: 20px;">DALEJ</button>
+                <input type="text" id="discord" placeholder="TWÓJ NICK DISCORD" required>
+                <input type="text" id="roblox" placeholder="TWÓJ NICK ROBLOX" required>
+                <button type="submit" class="btn-action" id="submitBtn">DALEJ DO PŁATNOŚCI</button>
             </form>
-            <p onclick="closeModal()" style="cursor:pointer; color: #555; margin-top: 20px;">Anuluj</p>
+            <p onclick="closeModal()" style="cursor:pointer; color: #555; margin-top: 15px; font-size: 0.8rem;">Anuluj zamówienie</p>
         </div>
     </div>
 
     <script>
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1463588227284734196/tRkJ01XS-65NDWJhrnjZeUfiWpg7OBzv9L65Tlq_I0tZlqd1YofFU0Se0rS6xGS7Vigy';
-        const STRIPE_URL = 'https://buy.stripe.com/cNieVc49d5lX9GV3qy4AU0Q';
+        let currentProduct = "";
+        let currentStripe = "";
 
-        function showPage(p) { document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); document.getElementById(p).classList.add('active'); }
-        function openModal() { document.getElementById('modal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
-
-        const container = document.getElementById('particles');
-        function createBubble() {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            const size = Math.random() * 60 + 20 + 'px';
-            bubble.style.width = size;
-            bubble.style.height = size;
-            bubble.style.left = Math.random() * 100 + 'vw';
-            bubble.style.animationDuration = Math.random() * 5 + 7 + 's';
-            bubble.style.opacity = Math.random() * 0.5;
-            
-            container.appendChild(bubble);
-            
-            setTimeout(() => {
-                bubble.remove();
-            }, 12000);
+        function showPage(p) { 
+            document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); 
+            document.getElementById(p).classList.add('active'); 
+            window.scrollTo(0,0);
+        }
+        
+        function openModal(name, stripeLink) { 
+            currentProduct = name;
+            currentStripe = stripeLink;
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modal').style.display = 'flex'; 
         }
 
-        setInterval(createBubble, 600);
-        for(let i=0; i<10; i++) createBubble();
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "WYSYŁANIE...";
+            btn.innerText = "PRZETWARZANIE...";
             btn.disabled = true;
 
             try {
@@ -256,23 +272,36 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         embeds: [{
-                            title: "🚨 NOWY ZAKUP",
-                            color: 16711680,
+                            title: "🚨 NOWA PRÓBA ZAKUPU",
+                            color: 5763719,
                             fields: [
+                                { name: "📦 Pakiet", value: currentProduct, inline: false },
                                 { name: "👾 Discord", value: document.getElementById('discord').value, inline: true },
                                 { name: "🎮 Roblox", value: document.getElementById('roblox').value, inline: true }
-                            ]
+                            ],
+                            timestamp: new Date()
                         }]
                     })
                 });
-                window.location.href = STRIPE_URL;
+                window.location.href = currentStripe;
             } catch (error) {
                 alert("Błąd połączenia!");
                 btn.disabled = false;
-                btn.innerText = "DALEJ";
+                btn.innerText = "SPRÓBUJ PONOWNIE";
             }
         });
+
+        const container = document.getElementById('particles');
+        function createBubble() {
+            const b = document.createElement('div');
+            b.className = 'bubble';
+            const s = Math.random() * 40 + 10 + 'px';
+            b.style.width = s; b.style.height = s;
+            b.style.left = Math.random() * 100 + 'vw';
+            container.appendChild(b);
+            setTimeout(() => b.remove(), 10000);
+        }
+        setInterval(createBubble, 1000);
     </script>
 </body>
 </html>
-
